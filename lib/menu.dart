@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:epas/left_drawer.dart';
+import 'package:epas/item_form.dart';
 
 class MyHomePage extends StatelessWidget {
   final String npm = '2306202315'; // NPM
@@ -6,13 +8,13 @@ class MyHomePage extends StatelessWidget {
   final String className = 'PBP F'; // Kelas
   final List<ItemHomepage> items = [
          ItemHomepage("Lihat Daftar Produk", Icons.visibility),
-         ItemHomepage("Tambah Produk", Icons.add),
+         ItemHomepage("Tambah Item", Icons.add),
          ItemHomepage("Logout", Icons.logout),
   ];
 
   MyHomePage({super.key});
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +27,11 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
       ),
+
+      drawer: const LeftDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -86,6 +92,12 @@ class ItemCard extends StatelessWidget {
             ..showSnackBar(
               SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
             );
+          
+          if (item.name == "Tambah Item") {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ItemFormPage()));
+          }
+
         },
         child: Container(
           padding: const EdgeInsets.all(8),
